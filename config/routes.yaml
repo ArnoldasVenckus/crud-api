@@ -5,6 +5,12 @@ customer_list:
   path: api/v1/customers
   controller: App\Controller\CustomerController:indexAction
   methods: [GET]
+customer_show:
+  path: api/v1/customers/{customerId}
+  controller: App\Controller\CustomerController:showAction
+  methods: [GET]
+  requirements:
+    id: '\d+'
 customer_create:
   path: api/v1/customers
   controller: App\Controller\CustomerController:createAction
