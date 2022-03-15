@@ -25,14 +25,15 @@ class Cart
     private $dateTime;
 
     /**
-     * @ORM\OneToOne(targetEntity=Customer::class)
-     */
-    private $customer;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="carts")
      */
     private $products;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="carts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Customer;
 
     public function __construct()
     {
@@ -52,18 +53,6 @@ class Cart
     public function setDateTime(\DateTimeInterface $dateTime): self
     {
         $this->dateTime = $dateTime;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): self
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -88,6 +77,18 @@ class Cart
     public function removeProduct(Product $product): self
     {
         $this->products->removeElement($product);
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->Customer;
+    }
+
+    public function setCustomer(?Customer $Customer): self
+    {
+        $this->Customer = $Customer;
 
         return $this;
     }

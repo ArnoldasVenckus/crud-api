@@ -19,6 +19,10 @@ product_list:
   path: api/v1/products
   controller: App\Controller\ProductController:indexAction
   methods: [GET]
+product_show:
+  path: api/v1/products/{productId}
+  controller: App\Controller\ProductController:showAction
+  methods: [GET]
 product_create:
   path: api/v1/products
   controller: App\Controller\ProductController:createAction
@@ -28,6 +32,12 @@ product_delete:
   controller: App\Controller\ProductController:deleteAction
   methods: [DELETE]
   requirements: 
+    id: '\d+'
+product_update:
+  path: api/v1/products/{productId}
+  controller: App\Controller\ProductController:updateAction
+  methods: [PUT]
+  requirements:
     id: '\d+'
 cart_show:
   path: api/v1/customers/{id}/cart

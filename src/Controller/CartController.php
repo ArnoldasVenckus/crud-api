@@ -34,8 +34,7 @@ class CartController extends AbstractApiController
         if(!$cart){
             throw new NotFoundHttpException('Cart does not exist for this customer');
         }
-        // $allProducts = ProductRepository::class;
-        // $allProducts->findAll();
+
         return $this->respond($cart);
     }
 
