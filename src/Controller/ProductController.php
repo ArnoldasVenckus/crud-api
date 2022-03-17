@@ -12,6 +12,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class ProductController extends AbstractApiController
 {
@@ -72,6 +76,11 @@ class ProductController extends AbstractApiController
         $product = $form->getData();
         $entityManager->persist($product);
         $entityManager->flush();
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $product = $serializer->serialize($product, 'xml');
         
         return $this->respond($product);
     }
@@ -99,4 +108,5 @@ class ProductController extends AbstractApiController
 
         return $this->respond($product);
     }
+
 }

@@ -31,7 +31,7 @@ class CustomerController extends AbstractApiController
         return $this->respond($customers);
     }
 
-    public function showAction(CustomerRepository $customerRepository, $customerId){
+    public function showAction(CustomerRepository $customerRepository, $customerId): Response {
 
         $customer = $customerRepository->findOneBy([
             'id' => $customerId,
